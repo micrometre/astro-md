@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+
+import Link from '../components/Link.astro';
+import Layout from '../layouts/Layout.astro';
+
+import '../styles/index.css';
+
+const posts = await getCollection('blog');
+---
+
+<Layout title='Welcome to Astro.'>
+  <div class='mt-10, flex flex-col'>
+    <h2 class='text-2xl font-semibold'>Recent Contact Messsages:</h2>
+    <ol class='mt-4 px-10 space-y-2 list-decimal'>
+      {
+        posts.map((post) => (
+          <li>
+            <Link class='flex justify-between' href={`/blog/${post.slug}`}>
+              {post.data.title}
+              {post.data.date}
+              <span class='text-gray-400'>
+              {post.data.title}
+              </span>
+            </Link>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</Layout>
